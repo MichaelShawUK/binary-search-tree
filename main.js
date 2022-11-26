@@ -41,39 +41,28 @@ function insert(value, root) {
 }
 
 function remove(value, root) {
-  console.log(root);
   let key = root.data;
-  if (key === value && root.left === null && root.right === null) {
-    console.log(`Before: ${root}`);
-    root = null;
-    console.log(`After: ${root}`);
-    return;
+  if (key === value) {
+    if (root.left === null && root.right === null) {
+      return null;
+    } 
+    else if (root.left === null || root.right === null) {
+      if (root.left === null) return root.right;
+      if (root.right === null) return root.left;
+    }
   }
-  if (value < key) remove(value, root.left);
-  else if (value > key) remove(value, root.right);
+  if (value < key) {
+    root.left = remove(value, root.left);
+  }
+  else if (value > key) {
+    root.right = remove(value, root.right);
+  }
+  return root;
 }
 
-const a = Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+const a = Tree([1,2,3,4,5,6,7,8,9]);
 prettyPrint(a);
-insert(6, a);
+remove(8, a);
+remove(3, a);
 prettyPrint(a);
-// remove(3, a);
-// prettyPrint(a);
 
-// const b = Tree([1,2,3,4,5]);
-// prettyPrint(b);
-// insert(6, b);
-// prettyPrint(b);
-
-// insert(6, b);
-// prettyPrint(b);
-// insert(0, b);
-// prettyPrint(b);
-// insert(7, b);
-// prettyPrint(b);
-// insert(8, b);
-// prettyPrint(b);
-// insert(-10, b);
-// prettyPrint(b);
-// insert(-5, b);
-// prettyPrint(b);
