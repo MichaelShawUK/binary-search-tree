@@ -50,6 +50,12 @@ function remove(value, root) {
       if (root.left === null) return root.right;
       if (root.right === null) return root.left;
     }
+    else {
+      let successor = findSuccessor(root.right);
+      root = remove(successor.data, root);
+      root.data = successor.data;
+      return root;
+    }
   }
   if (value < key) {
     root.left = remove(value, root.left);
@@ -60,9 +66,28 @@ function remove(value, root) {
   return root;
 }
 
-const a = Tree([1,2,3,4,5,6,7,8,9]);
-prettyPrint(a);
-remove(8, a);
-remove(3, a);
-prettyPrint(a);
+function findSuccessor(root) {
+  if (root.left === null) return root;
+  root = findSuccessor(root.left);
+  return root;
+}
+
+// const a = Tree([1,2,3,4,5,6,7,8,9]);
+
+const test = Tree([58,41,48]);
+insert(52,test);
+insert(51,test);
+insert(49,test);
+insert(50,test);
+insert(53,test);
+insert(62,test);
+insert(59,test);
+insert(60,test);
+insert(64,test);
+prettyPrint(test);
+
+remove(62, test);
+prettyPrint(test);
+
+
 
