@@ -72,6 +72,17 @@ function findSuccessor(root) {
   return root;
 }
 
+function find(value, root) {
+  if (root === null) return root;
+  if (root.data === value) return root;
+  if (value < root.data) {
+    root = find(value, root.left);
+  } else {
+    root = find(value, root.right);
+  }
+  return root;
+}
+
 // const a = Tree([1,2,3,4,5,6,7,8,9]);
 
 const test = Tree([58,41,48]);
@@ -88,6 +99,10 @@ prettyPrint(test);
 
 remove(62, test);
 prettyPrint(test);
+
+console.log(find(48, test));
+remove(48,test);
+console.log(find(49,test));
 
 
 
