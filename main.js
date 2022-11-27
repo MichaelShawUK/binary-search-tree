@@ -8,7 +8,7 @@ function Node(data=null, left=null, right=null) {
 function Tree(array) {
   let sortedArray = mergeSort([...new Set(array)]);
   let root = buildTree(sortedArray, 0, sortedArray.length - 1);
-  return root;  
+  return root;
 };
 
 function buildTree(array, start, end) {
@@ -83,7 +83,22 @@ function find(value, root) {
   return root;
 }
 
+function levelOrder(root) {
+  let queue = [root];
+  let arr = [];
+  while (queue.length > 0) {
+    let current = queue.shift();
+    arr.push(current.data);
+    if (current.left !== null) queue.push(current.left);
+    if (current.right !== null) queue.push(current.right);
+  }
+  return arr;
+}
+
+
 // const a = Tree([1,2,3,4,5,6,7,8,9]);
+// prettyPrint(a);
+// console.log(levelOrder(a));
 
 const test = Tree([58,41,48]);
 insert(52,test);
@@ -103,6 +118,8 @@ prettyPrint(test);
 console.log(find(48, test));
 remove(48,test);
 console.log(find(49,test));
+prettyPrint(test);
+console.log(levelOrder(test));
 
 
 
