@@ -83,18 +83,21 @@ function find(value, root) {
   return root;
 }
 
-function levelOrder(root) {
+function levelOrder(root, transformNode = originalNode) {
   let queue = [root];
   let arr = [];
   while (queue.length > 0) {
     let current = queue.shift();
-    arr.push(current.data);
+    arr.push(transformNode(current.data));
     if (current.left !== null) queue.push(current.left);
     if (current.right !== null) queue.push(current.right);
   }
   return arr;
 }
 
+function originalNode(data) {
+  return data;
+}
 
 // const a = Tree([1,2,3,4,5,6,7,8,9]);
 // prettyPrint(a);
@@ -120,6 +123,9 @@ remove(48,test);
 console.log(find(49,test));
 prettyPrint(test);
 console.log(levelOrder(test));
+
+function minusFifty(value) {return value - 50;}
+console.log(levelOrder(test, minusFifty));
 
 
 
