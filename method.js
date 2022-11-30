@@ -99,6 +99,18 @@ const Tree = (array) => {
     return output;
   }
 
+  const heightRec = (node, count, max) => {
+    if (node === null) return max;
+    count++;
+    if (count > max) {
+      max = count;
+    }
+    max = heightRec(node.left, count, max);
+    max = heightRec(node.right, count, max);
+    return max;
+  }
+  
+
   return {
     root,
 
@@ -142,6 +154,12 @@ const Tree = (array) => {
       let output = [];
       postorderRec(this.root, output, transform);
       return output;
+    },
+
+    height(node = this.root) {
+      let max = 0;
+      let count = 0;
+      return heightRec(node, count, max);
     }
 
   }
@@ -175,3 +193,23 @@ console.log(a.levelOrder(minusFifty));
 console.log(a.preorder());
 console.log(a.postorder());
 prettyPrint(a.root);
+
+const b = Tree([30, 10, 15, 20]);
+// b.insert(36);
+// b.insert(37);
+// b.insert(38);
+// b.insert(39);
+// b.insert(40);
+prettyPrint(b.root);
+
+console.log(b.height());
+
+prettyPrint(a.root);
+console.log(a.height());
+const c = Tree([100,50,150,200]);
+c.insert(201);
+c.insert(202);
+c.insert(203);
+c.insert(204);
+prettyPrint(c.root);
+console.log(c.height());
