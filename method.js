@@ -109,6 +109,16 @@ const Tree = (array) => {
     max = heightRec(node.right, count, max);
     return max;
   }
+
+  const depthRec = (node, root, count) => {
+    if (node === root) return count;
+    if (node.data < root.data) {
+      count = depthRec(node, root.left, ++count);
+    } else {
+      count = depthRec(node, root.right, ++count);
+    }
+    return count;
+  }
   
 
   return {
@@ -159,7 +169,11 @@ const Tree = (array) => {
     height(node = this.root) {
       let max = 0;
       let count = 0;
-      return heightRec(node, count, max);
+      return heightRec(node, count, max)-1;
+    },
+
+    depth(node) {
+      return depthRec(node, this.root, 0);
     }
 
   }
@@ -193,23 +207,27 @@ console.log(a.levelOrder(minusFifty));
 console.log(a.preorder());
 console.log(a.postorder());
 prettyPrint(a.root);
+console.log(a.depth(a.find(64)));
 
-const b = Tree([30, 10, 15, 20]);
+// const b = Tree([30, 10, 15, 20]);
 // b.insert(36);
 // b.insert(37);
 // b.insert(38);
 // b.insert(39);
 // b.insert(40);
-prettyPrint(b.root);
+// prettyPrint(b.root);
 
-console.log(b.height());
+// console.log(b.height());
 
-prettyPrint(a.root);
-console.log(a.height());
-const c = Tree([100,50,150,200]);
-c.insert(201);
-c.insert(202);
-c.insert(203);
-c.insert(204);
-prettyPrint(c.root);
-console.log(c.height());
+// prettyPrint(a.root);
+// console.log(a.height());
+// const c = Tree([100,50,150,200]);
+// c.insert(201);
+// c.insert(202);
+// c.insert(203);
+// c.insert(204);
+// prettyPrint(c.root);
+// console.log(c.height());
+// console.log(c.height(c.find(202)))
+// const d = Tree([50]);
+// console.log(d.height());
