@@ -1,5 +1,4 @@
 import mergeSort from './mergeSort.js';
-import prettyPrint from './prettyPrint.js';
 
 const Node = (data, left=null, right=null) => {
   return {data, left, right}
@@ -119,8 +118,19 @@ const Tree = (array) => {
     }
     return count;
   }
-  
 
+  const isBalancedRec = (root) => {
+    if (root === null) return 0;
+    let difference = heightRec(root.left, 0, 0) - heightRec(root.right, 0, 0);
+    difference = Math.abs(difference);
+    if (difference > 1) return difference;
+    difference = isBalancedRec(root.left);
+    if (difference > 1) return difference;
+    difference = isBalancedRec(root.right);
+    if (difference > 1) return difference;
+    return difference;
+  }
+  
   return {
     root,
 
@@ -174,41 +184,50 @@ const Tree = (array) => {
 
     depth(node) {
       return depthRec(node, this.root, 0);
-    }
+    },
 
+    isBalanced() {
+      if (isBalancedRec(this.root) > 1) return false;
+      else return true;
+    },
+
+    rebalance() {
+      this.root = Tree(this.levelOrder()).root;
+    }
   }
 };
 
-const a = Tree([58,41,48]);
-a.insert(52);
-a.insert(51);
-a.insert(49);
-a.insert(50);
-a.insert(53);
-a.insert(62);
-a.insert(59);
-a.insert(60);
-a.insert(64);
-prettyPrint(a.root);
-a.delete(48);
-prettyPrint(a.root);
-a.insert(35);
-a.insert(44);
-a.insert(31);
-a.insert(47);
-prettyPrint(a.root);
-a.delete(41);
-prettyPrint(a.root);
-console.log(a.find(1));
-console.log(a.levelOrder());
-function minusFifty(value) {return value - 50;}
-function double(value) {return value * 2}
-console.log(a.levelOrder(minusFifty));
-console.log(a.preorder());
-console.log(a.postorder());
-prettyPrint(a.root);
-console.log(a.depth(a.find(64)));
+export { Tree };
 
+// const a = Tree([58,41,48]);
+// a.insert(52);
+// a.insert(51);
+// a.insert(49);
+// a.insert(50);
+// a.insert(53);
+// a.insert(62);
+// a.insert(59);
+// a.insert(60);
+// a.insert(64);
+// prettyPrint(a.root);
+// a.delete(48);
+// prettyPrint(a.root);
+// a.insert(35);
+// a.insert(44);
+// a.insert(31);
+// a.insert(47);
+// prettyPrint(a.root);
+// a.delete(41);
+// prettyPrint(a.root);
+// console.log(a.find(1));
+// console.log(a.levelOrder());
+// function minusFifty(value) {return value - 50;}
+// function double(value) {return value * 2}
+// console.log(a.levelOrder(minusFifty));
+// console.log(a.preorder());
+// console.log(a.postorder());
+// prettyPrint(a.root);
+// console.log(a.height(a.find(50)));
 // const b = Tree([30, 10, 15, 20]);
 // b.insert(36);
 // b.insert(37);
@@ -231,3 +250,33 @@ console.log(a.depth(a.find(64)));
 // console.log(c.height(c.find(202)))
 // const d = Tree([50]);
 // console.log(d.height());
+// const e = Tree([4,5,6]);
+// e.insert(3);
+// e.insert(2);
+// e.insert(1);
+// e.insert(7);
+// e.insert(8);
+
+// prettyPrint(e.root);
+// e.isBalanced();
+
+// const f = Tree([1,2,3,4,5,6,7,8,9]);
+// f.insert(10);
+// prettyPrint(f.root);
+
+// console.log(f.isBalanced());
+// console.log(f.levelOrder());
+// const g = Tree(f.levelOrder());
+// prettyPrint(g.root);
+// console.log(f.inorder());
+// console.log(f.isBalanced());
+// console.log(g.inorder());
+// console.log(g.isBalanced());
+
+// const h = Tree([4,5,6,7]);
+// h.insert(8);
+// console.log(h.isBalanced());
+// prettyPrint(h.root);
+// h.rebalance();
+// console.log(h.isBalanced());
+// prettyPrint(h.root);
