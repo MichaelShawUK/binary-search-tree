@@ -40,5 +40,3 @@ console.log(`Level-order:       ${t.levelOrder()}`);
 console.log(`Pre-order:         ${t.preorder()}`);
 console.log(`In-order:          ${t.inorder()}`);
 console.log(`Post-order:        ${t.postorder()}`);
-
-
